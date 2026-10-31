@@ -10,7 +10,6 @@
 
 ```text
 contestant_ws/
-├── .gitignore
 └── src/
     └── rmtc_bot_cpp/
         ├── CMakeLists.txt
