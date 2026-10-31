@@ -10,7 +10,6 @@
 
 ```text
 contestant_ws/
-├── README.md
 ├── .gitignore
 └── src/
     └── rmtc_bot_cpp/
