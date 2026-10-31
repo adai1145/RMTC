@@ -2,23 +2,21 @@
 
 参赛程序运行于 ROS 2 Humble，订阅本席位感知与裁判公开公告，每个 Tick 输出一个合法动作；第一阶段完成自主采集，第二阶段进行资源对抗、任务与随机事件处理。随机事件公告以原文交给官方 AI 网关的大语言模型理解，逐 Tick 动作始终由本地策略执行。
 
----
-
 ## 1. 目录结构、运行环境与依赖
 
 ### 1.1 目录结构
 
-```text
+   text
 contestant_ws/
 └── src/
     └── rmtc_bot_cpp/
         ├── CMakeLists.txt
         ├── package.xml
-        ├── run_contestant_cpp.sh          # 启动脚本
+        ├── run_contestant_cpp.sh          
         ├── config/
-        │   └── decision_config.json       # 决策类型与策略参数
+        │   └── decision_config.json       
         ├── include/
-        │   ├── nlohmann/json.hpp          # 第三方单头文件
+        │   ├── nlohmann/json.hpp          
         │   └── rmtc_bot_cpp/
         │       ├── types.hpp
         │       ├── protocol.hpp
@@ -33,14 +31,10 @@ contestant_ws/
             ├── planner.cpp
             ├── llm_client.cpp
             └── strategy.cpp
-```
-
-`build/`、`install/`、`log/` 为构建和运行产物，不纳入版本管理。
 
 ### 1.2 运行环境与依赖
-
 - Ubuntu 22.04 + ROS 2 Humble
-- C++17 编译器
+- C++ 编译器
 - `rclcpp`、`std_msgs`、`ament_index_cpp`
 - `libcurl4-openssl-dev`
 - `nlohmann/json` 已随源码提供（`include/nlohmann/json.hpp`），无需单独安装
@@ -50,8 +44,6 @@ sudo apt update
 sudo apt install -y ros-humble-rclcpp ros-humble-std-msgs \
   ros-humble-ament-index-cpp libcurl4-openssl-dev
 ```
-
----
 
 ## 2. 构建方法、启动目录与完整启动命令
 
@@ -66,8 +58,6 @@ colcon build --symlink-install --packages-select rmtc_bot_cpp
 source install/setup.bash
 ros2 pkg prefix rmtc_bot_cpp
 ```
-
-`ros2 pkg prefix` 应指向当前工作空间的 `install/rmtc_bot_cpp`。推荐使用 `--symlink-install`，便于修改配置后直接生效。
 
 ### 2.2 启动目录
 
@@ -94,20 +84,8 @@ export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 export RMTC_AI_GATEWAY=http://<本场网关地址>:<端口>
 export RMTC_TEAM_TOKEN='<本场席位令牌>'
 
-./src/rmtc_bot_cpp/run_contestant_cpp.sh A '路边队'
+bash ./src/rmtc_bot_cpp/run_contestant_cpp.sh A '路边队'
 ```
-
-**方式二：直接使用 `ros2 run`**
-
-```bash
-cd ~/contestant_ws
-source /opt/ros/humble/setup.bash
-source install/setup.bash
-
-ros2 run rmtc_bot_cpp rmtc_bot_cpp A '路边队' \
-  --decision-config "$PWD/src/rmtc_bot_cpp/config/decision_config.json"
-```
-
 ## 3. 第一阶段、第二阶段的启动与切换
 
 两个阶段使用**完全相同的参赛端启动命令**，不需要额外参数。阶段由裁判端切换，程序根据感知内容自动识别：
@@ -175,7 +153,7 @@ bash ./src/rmtc_bot_cpp/run_contestant_cpp.sh A '路边队'
 | `main.cpp` | ROS 接入层：感知/公告/任务/名录订阅、动作与注册发布、场次切换、同 Tick 重发、监控日志、LLM 触发 |
 | `protocol.cpp` | 协议层：感知 JSON 解析、9×9 相对位置解析、动作与注册消息构造 |
 | `world.cpp` | 世界模型：单场次状态、视野合并、资源/障碍/敌人记忆、公告去重、幻术回执学习 |
-| `planner.cpp` | 规划层：Dijkstra 最短路、危险格代价、目标评分、前沿探索 |
+| `planner.cpp` | 规划层：最短路、危险格代价、目标评分、前沿探索 |
 | `strategy.cpp` | 决策层：硬约束、即时战术、目标竞争、事件计划执行、LLM 建议融合 |
 | `llm_client.cpp` | LLM 客户端：提示词构造、HTTP 调用、响应校验、后台线程与失败降级 |
 
