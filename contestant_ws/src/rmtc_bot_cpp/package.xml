@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>rmtc_bot_cpp</name>
+  <version>1.0.0</version>
+  <description>RMTC 机甲大师图灵对决赛参赛机器人（C++ 版）：ROS 2 感知驱动决策 + 官方 LLM 网关高层建议</description>
+  <maintainer email="team@example.com">RMTC Team</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_msgs</depend>
+  <depend>ament_index_cpp</depend>
+  <depend>libcurl</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

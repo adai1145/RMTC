@@ -1,0 +1,21 @@
+{
+  "decision_type": "balanced",
+  "params": {
+    "enemy_weight_low": 50,
+    "enemy_weight_mid": 30,
+    "enemy_weight_high": 10,
+    "resource_high_bonus": 20,
+    "resource_normal_bonus": 10,
+    "reach_weight": 20,
+    "llm_goal_weight": 15,
+    "chase_hp_min": 41,
+    "residual_hp": 40,
+    "chase_radius_residual": 2,
+    "chase_radius_residual_kill": 4,
+    "llm_quota_soft_limit": 80,
+    "residual_defend": false,
+    "chip_defender_enabled": true,
+    "fortress_goal_weight": 45,
+    "peerless_enemy_weight_mult": 3
+  }
+}
