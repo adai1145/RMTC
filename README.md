@@ -6,7 +6,7 @@
 
 ### 1.1 目录结构
 
-   text
+```text
 contestant_ws/
 └── src/
     └── rmtc_bot_cpp/
@@ -31,6 +31,7 @@ contestant_ws/
             ├── planner.cpp
             ├── llm_client.cpp
             └── strategy.cpp
+```
 
 ### 1.2 运行环境与依赖
 - Ubuntu 22.04 + ROS 2 Humble
