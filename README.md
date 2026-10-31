@@ -1,5 +1,8 @@
 # RMTC 机甲大师图灵对决赛 · 参赛程序 `rmtc_bot_cpp`
 
+技术报告：
+https://www.yuque.com/g/azir-rfkau/fz2t31/ctl44v9llysdh9yb/collaborator/join?token=gOhoDE02bbiPi1AO&source=doc_collaborator# 《RMTC 机甲大师图灵对决赛 技术报告》
+
 参赛程序运行于 ROS 2 Humble，订阅本席位感知与裁判公开公告，每个 Tick 输出一个合法动作；第一阶段完成自主采集，第二阶段进行资源对抗、任务与随机事件处理。随机事件公告以原文交给官方 AI 网关的大语言模型理解，逐 Tick 动作始终由本地策略执行。
 
 ## 1. 目录结构、运行环境与依赖
