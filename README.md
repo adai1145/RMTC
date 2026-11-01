@@ -116,7 +116,7 @@ bash ./src/rmtc_bot_cpp/run_contestant_cpp.sh A '路边队'
 | ROS 域 | `ROS_DOMAIN_ID` | 必须与裁判端一致 |
 | 仅本机通信 | `ROS_LOCALHOST_ONLY` | 必须为 `0` |
 | DDS 实现 | `RMW_IMPLEMENTATION` | 与裁判端一致；公开测试端默认 `rmw_fastrtps_cpp` |
-| AI 网关 | `RMTC_AI_GATEWAY` | 只填 base URL，例如 `http://192.168.1.100:8000`；**不要**带 `/v1/chat/completions` |
+| AI 网关 | `RMTC_AI_GATEWAY`（别名 `RMTC_AI_URL`，同时设置时前者优先） | 填 base URL，例如 `http://192.168.1.100:8000`；填了完整端点（含 `/v1/chat/completions`）程序也会自动修正，建议只填 base URL |
 | 席位令牌 | `RMTC_TEAM_TOKEN` | 本场令牌，通过 `Authorization: Bearer` 使用，禁止写入代码、配置、日志或截图 |
 | 模型名 | `RMTC_AI_MODEL` | 可选；不设置时使用网关默认模型 |
 | 最大输出 | `RMTC_AI_MAX_TOKENS` | 默认 `600` |
