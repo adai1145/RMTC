@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <chrono>
 #include <sstream>
+#include <string_view>
 #include <utility>
 
 using nlohmann::json;
@@ -13,6 +14,25 @@ namespace rmtc {
 
 namespace {
 constexpr size_t kMaxRequestBytes = 2u * 1024u * 1024u;  // 网关请求体上限
+constexpr std::string_view kChatSuffix = "/v1/chat/completions";
+
+// 网关既可写成 base（http://host:port），也可写成完整端点（.../v1/chat/completions）。
+// 统一归一化成 base，post 时只拼一次，避免双重路径 404。
+std::string normalize_gateway(std::string value) {
+  const auto strip_slash = [&value] {
+    while (!value.empty() && value.back() == '/') {
+      value.pop_back();
+    }
+  };
+  strip_slash();
+  if (value.size() > kChatSuffix.size() &&
+      value.compare(value.size() - kChatSuffix.size(), kChatSuffix.size(),
+                    kChatSuffix) == 0) {
+    value.erase(value.size() - kChatSuffix.size());
+    strip_slash();
+  }
+  return value;
+}
 
 size_t write_callback(char* ptr, size_t size, size_t nmemb, void* userdata) {
   const size_t total = size * nmemb;
@@ -335,9 +355,7 @@ LLMClient::LLMClient(std::string gateway, std::string token,
       max_tokens_(max_tokens),
       timeout_seconds_(timeout_seconds),
       log_(std::move(log)) {
-  while (!gateway_.empty() && gateway_.back() == '/') {
-    gateway_.pop_back();
-  }
+  gateway_ = normalize_gateway(gateway_);
 }
 
 LLMClient::~LLMClient() { stop(); }
@@ -606,10 +624,7 @@ LLMClient::PostResult LLMClient::post(const std::string& prompt) {
 
 std::string LLMClient::check_health(const std::string& gateway,
                                     long timeout_seconds) {
-  std::string base = gateway;
-  while (!base.empty() && base.back() == '/') {
-    base.pop_back();
-  }
+  const std::string base = normalize_gateway(gateway);
   CURL* curl = curl_easy_init();
   if (curl == nullptr) {
     return "不可达: curl 初始化失败";

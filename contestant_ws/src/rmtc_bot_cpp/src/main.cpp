@@ -561,8 +561,15 @@ int main(int argc, char** argv) {
   }
   const std::string name =
       !name_arg.empty() ? name_arg : rmtc::env_or("RMTC_TEAM_NAME", "rmtc_bot");
-  const std::string gateway =
-      rmtc::env_or("RMTC_AI_GATEWAY", "http://127.0.0.1:8080");
+  // RMTC_AI_URL 是 RMTC_AI_GATEWAY 的别名（两者都可写 base 或完整端点）；
+  // 同时设置时以 RMTC_AI_GATEWAY 为准。
+  std::string gateway = rmtc::env_or("RMTC_AI_GATEWAY", "");
+  if (gateway.empty()) {
+    gateway = rmtc::env_or("RMTC_AI_URL", "");
+  }
+  if (gateway.empty()) {
+    gateway = "http://127.0.0.1:8080";
+  }
   const std::string token =
       rmtc::env_or("RMTC_TEAM_TOKEN", "practice-" + seat);
   const std::string model_env = rmtc::env_or("RMTC_AI_MODEL", "");

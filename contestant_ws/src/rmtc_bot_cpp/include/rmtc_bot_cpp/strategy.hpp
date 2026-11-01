@@ -24,8 +24,8 @@ struct StrategyParams {
   int enemy_weight_low = 50;           // 极危敌人(hp≤20 一炮死)追击权重
   int enemy_weight_mid = 30;           // 低血敌人(21-40 两炮死)追击权重
   int enemy_weight_high = 10;          // 中高血敌人(>40)追击权重
-  int resource_high_bonus = 20;        // 第二阶段高价值资源加权（20+20=40，压过中血敌人 30）
-  int resource_normal_bonus = 10;      // 第二阶段普通资源加权（10+10=20，高于满血敌人 10）
+  int resource_high_bonus = 45;       // 第二阶段高价值资源加权（20+45=65，压过极危敌人 50）
+  int resource_normal_bonus = 35;     // 第二阶段普通资源加权（10+35=45，高于中血敌人 30，低于极危 50）
   int reach_weight = 20;               // reach 任务坐标权重（任务分 5 ≈ 资源 20）
   int llm_goal_weight = 15;            // LLM 目标默认权重（低于任务 20：情报源而非导航员）
   int chase_hp_min = 41;               // 中血及以上(≥41)正常追击；≤40 走残血半径规则
@@ -35,7 +35,7 @@ struct StrategyParams {
   int llm_quota_soft_limit = 80;       // 成功调用达到该数后只保留公告触发
   bool residual_defend = false;        // 残血无目标时防御待机（false=继续探索找资源/一炮目标）
   bool chip_defender_enabled = true;   // 对防御中的目标直接开火（洁身自好窗口除外）
-  int fortress_goal_weight = 45;       // 天下无双堡垒未获增益时的前往权重（高于高价值资源 40）
+  int fortress_goal_weight = 70;       // 天下无双堡垒未获增益时的前往权重（高于高价值资源 65）
   int peerless_enemy_weight_mult = 3;  // 增益期间敌人权重倍率（50/30/10 → 150/90/30）
 };
 

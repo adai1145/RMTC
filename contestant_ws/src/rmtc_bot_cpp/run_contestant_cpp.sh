@@ -25,8 +25,8 @@ fi
 set -u
 export ROS_LOCALHOST_ONLY="${ROS_LOCALHOST_ONLY:-0}"
 export ROS_DOMAIN_ID="${ROS_DOMAIN_ID:-27}"
-# 公开测试端默认网关；正式比赛按主办方通知替换。
-export RMTC_AI_GATEWAY="${RMTC_AI_GATEWAY:-http://127.0.0.1:8080}"
+# 公开测试端默认网关；正式比赛按主办方通知替换。RMTC_AI_URL 为别名，可写 base 或完整端点。
+export RMTC_AI_GATEWAY="${RMTC_AI_GATEWAY:-${RMTC_AI_URL:-http://127.0.0.1:8080}}"
 export RMTC_TEAM_TOKEN="${RMTC_TEAM_TOKEN:-practice-${SEAT}}"
 
 echo "席位=${SEAT} 队名=${NAME} ROS_DOMAIN_ID=${ROS_DOMAIN_ID}"

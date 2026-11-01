@@ -789,7 +789,7 @@ std::optional<std::string> Strategy::goal_move(WorldModel& world) {
     }
   }
   // 资源两阶段都按原始价值参与竞争，不缩权、不设总量封顶；
-  // 第二阶段对资源加权（高价值压过中血敌人、普通资源高于满血敌人），
+  // 第二阶段对资源加权（高价值压过极危敌人、普通资源高于中血敌人与任务点），
   // 并叠加 LLM goals 偏置。
   const bool stage2 = world.stage == 2;
   for (const auto& [cell, info] : world.resource_cells()) {
